@@ -446,7 +446,7 @@ Useful as a cron to keep traceroute traits tables up to date:
 
         if flag == '-s':
             do_get_traceroutes = True
-            do_get_unknown_traceroutes = True
+            do_get_unknown_traceroutes = False
             do_purge_traceroutes = True
             do_add_traceroutes =True
 
