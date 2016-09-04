@@ -14,7 +14,7 @@ import ixmaps
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # --- Note: Make sure that URL_HOME ends with a slash (/) ---
-URL_HOME = "http://dev.ixmaps.ischool.utoronto.ca/"
+URL_HOME = "https://www.iprp.ca/"
 # URL_HOME = "http://www.ixmaps.ca/"
 # URL_HOME = "http://test.n-space.org/ixmaps/"
 
@@ -40,7 +40,8 @@ class DBConnect(object):
     conn = None
     def getConnection():
         if not DBConnect.conn:
-            DBConnect.conn = pg.connect("ixmaps", "localhost", 5432)
+            #DBConnect.conn = pg.connect("ixmaps", "localhost", 5432)
+            DBConnect.conn = pg.connect('ixmaps', 'localhost', 5432, None, None, 'ixmaps', 'ixmaps531')
         return DBConnect.conn
     getConnection = staticmethod(getConnection)
 
