@@ -352,6 +352,7 @@ for flag, value in opts:
 
 if want_db_conn:
     conn = DBConnect.getConnection()
+    print conn
 
 req=WhoisRequest(conn, new_req_addr, verbose=verbose)
 

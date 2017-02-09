@@ -107,6 +107,9 @@ class MaxMindLookup(object):
         self.gs.bind(self.sock_filename)
 
     def query_dquad(self, dquad):
+        print "dquad:" + dquad
+        print "query_mode:" + self.query_mode
+
         self.gs.sendto(self.query_mode+dquad, MaxMindLookup.MM_SOCKET)
         buf = self.gs.recv(128)
         return buf
@@ -390,7 +393,7 @@ set_addr_info.py -T 12.4.3.4,32 66.44.33.66,112 205.12.17.245,150
         if lock.acquire():
             conn = DBConnect.getConnection()
             addrs = get_unknown_ip_addrs(conn)
-            #print addrs
+            print addrs
             tr = [TRNode(dq_to_num(t), 0.0) for t in addrs]
             for tr_elem in tr:
                 tr_elem.lookup_geoloc(ml)

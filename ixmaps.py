@@ -14,8 +14,8 @@ import ixmaps
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # --- Note: Make sure that URL_HOME ends with a slash (/) ---
-URL_HOME = "https://www.iprp.ca/"
-# URL_HOME = "http://www.ixmaps.ca/"
+# URL_HOME = "https://www.iprp.ca/"
+URL_HOME = "http://www.ixmaps.ca/"
 # URL_HOME = "http://test.n-space.org/ixmaps/"
 
 EARTH_EQUAT_RADIUS = 6378.145    # Equatorial radius in km
