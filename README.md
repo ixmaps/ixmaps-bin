@@ -1,6 +1,6 @@
 ## A set of backend scripts required to keep everything afloat
 
-### Server setup requires cloning these into the /home/ixmaps/bin directory (and setting up the requisite cronjobs)
+#### Server setup requires cloning these into the /home/ixmaps/bin directory (and setting up the requisite cronjobs)
 
 **download_maxmind.py**
 ```
