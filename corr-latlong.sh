@@ -248,6 +248,8 @@ Ott_lat=45.42
 Ott_long=-75.7
 Peterborough_lat=44.3
 Peterborough_long=-78.31
+PGeorge_lat=53.92
+PGeorge_long=-122.75
 Que_lat=46.81
 Que_long=-71.21
 Reg_lat=50.45
@@ -1299,6 +1301,13 @@ update ip_addr_info SET p_status='G',lat=$Aust_lat,long=$Aust_long,gl_override=2
 update ip_addr_info SET p_status='G',lat=$Sea_lat,long=$Sea_long,gl_override=2 where $geocorrection_type and (hostname like '%seattle%' or hostname like '%Seattle%' or hostname like '%SEATTLE%') and $temp_lat;
 update ip_addr_info SET p_status='G',lat=$Dal_lat,long=$Dal_long,gl_override=2 where $geocorrection_type and (hostname like '%dallas%' or hostname like '%Dallas%' or hostname like '%DALLAS%') and $temp_lat;
 update ip_addr_info SET p_status='G',lat=$Pho_lat,long=$Pho_long,gl_override=2 where $geocorrection_type and (hostname like '%phoenix%' or hostname like '%Phoenix%' or hostname like '%PHOENIX%') and $temp_lat;
+"
+
+#echo ""
+#echo "More stragglers"
+temp_lat="(lat=49.25)"
+psql ixmaps -c "
+update ip_addr_info SET p_status='G',lat=$PGeorge_lat,long=$PGeorge_long,gl_override=2 where $geocorrection_type and (hostname like '%pgtx%' or hostname like '%PGTX%') and $temp_lat;
 "
 
 #echo ""
