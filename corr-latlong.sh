@@ -521,9 +521,9 @@ update ip_addr_info SET p_status='G',lat=$WestchesterNY_lat,long=$WestchesterNY_
 update ip_addr_info SET p_status='G',lat=$WorchesterMA_lat,long=$WorchesterMA_long,gl_override=1 where $geocorrection_type and asnum=174 and hostname like '%.orh%' and (lat=38 or lat=38.9144);
 update ip_addr_info SET p_status='G',lat=$ProvidenceRI_lat,long=$ProvidenceRI_long,gl_override=1 where $geocorrection_type and asnum=174 and hostname like '%.pvd%' and (lat=38 or lat=38.9144);
 
-update ip_addr_info SET p_status='G',lat=$Mtl_lat,long=$Mtl_long,gl_override=1 where $geocorrection_type and asnum=174 and hostname like '%.ymq%' and (lat=38 or lat=38.9144);
-update ip_addr_info SET p_status='G',lat=$Tor_lat,long=$Tor_long,gl_override=1 where $geocorrection_type and asnum=174 and hostname like '%.yyz%' and (lat=38 or lat=38.9144);
-update ip_addr_info SET p_status='G',lat=$Van_lat,long=$Van_long,gl_override=1 where $geocorrection_type and asnum=174 and hostname like '%.yvr%' and (lat=38 or lat=38.9144);
+update ip_addr_info SET p_status='G',lat=$Mtl_lat,long=$Mtl_long,gl_override=1 where $geocorrection_type and asnum=174 and hostname like '%.ymq%' and (lat=38 or lat=38.9144 or lat=37.751);
+update ip_addr_info SET p_status='G',lat=$Tor_lat,long=$Tor_long,gl_override=1 where $geocorrection_type and asnum=174 and hostname like '%.yyz%' and (lat=38 or lat=38.9144 or lat=37.751);
+update ip_addr_info SET p_status='G',lat=$Van_lat,long=$Van_long,gl_override=1 where $geocorrection_type and asnum=174 and hostname like '%.yvr%' and (lat=38 or lat=38.9144 or lat=37.751);
 
 update ip_addr_info SET p_status='G',lat=$Van_lat,long=$Van_long,gl_override=1 where $geocorrection_type and asnum=174 and hostname like '%.yvr%' and (lat=38 or lat=38.9144);
 
@@ -1269,7 +1269,6 @@ update ip_addr_info SET p_status='G',lat=$SF_lat,long=$SF_long,gl_override=2 whe
 update ip_addr_info SET p_status='G',lat=$Cle_lat,long=$Cle_long,gl_override=2 where $geocorrection_type and (hostname like '%.cle%' or hostname like '%.CLE%') and $temp_lat;
 update ip_addr_info SET p_status='G',lat=$Rochester_lat,long=$Rochester_long,gl_override=2 where $geocorrection_type and (hostname like '%.roc%' or hostname like '%.ROC%') and $temp_lat;
 update ip_addr_info SET p_status='G',lat=$Buf_lat,long=$Buf_long,gl_override=2 where $geocorrection_type and (hostname like '%.buf%' or hostname like '%.BUF%') and $temp_lat;
-update ip_addr_info SET p_status='G',lat=$Atl_lat,long=$Atl_long,gl_override=2 where $geocorrection_type and (hostname like '%.atl%' or hostname like '%.ATL%') and $temp_lat;
 update ip_addr_info SET p_status='G',lat=$Den_lat,long=$Den_long,gl_override=2 where $geocorrection_type and (hostname like '%.den%' or hostname like '%.DEN%') and $temp_lat;
 update ip_addr_info SET p_status='G',lat=$Phi_lat,long=$Phi_long,gl_override=2 where $geocorrection_type and (hostname like '%.phi%' or hostname like '%.PHI%') and $temp_lat;
 update ip_addr_info SET p_status='G',lat=$KC_lat,long=$KC_long,gl_override=2 where $geocorrection_type and (hostname like '%.mci%' or hostname like '%.MCI%') and $temp_lat;
