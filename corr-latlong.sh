@@ -1083,6 +1083,15 @@ update ip_addr_info SET p_status='G',lat=$Monc_lat,long=$Monc_long,gl_override=2
 "
 
 #echo ""
+#echo "TekSavvy"
+psql ixmaps -c "
+update ip_addr_info SET p_status='G',lat=$NY_lat,long=$NY_long,gl_override=2 where $geocorrection_type and asnum=5645 and hostname like '%nyc%' and (lat=0 or lat=42.4 or lat=42.4238 or lat=42.4045 or lat=43.6667);
+
+update ip_addr_info SET p_status='G',lat=$Tor_lat,long=$Tor_long,gl_override=2 where $geocorrection_type and asnum=5645 and hostname like '%tor%' and (lat=0 or lat=42.4 or lat=42.4238 or lat=42.4045);
+update ip_addr_info SET p_status='G',lat=$Mtl_lat,long=$Mtl_long,gl_override=2 where $geocorrection_type and asnum=5645 and hostname like '%mtl%' and (lat=0 or lat=42.4 or lat=42.4238 or lat=42.4045);
+"
+
+#echo ""
 #echo "Other specific locations"
 psql ixmaps -c "
 update ip_addr_info SET p_status='G',lat=$Ottix_lat,long=$Ottix_long,gl_override=2 where $geocorrection_type and hostname like '%ottix%' and (lat=60 or lat=33.9777);
