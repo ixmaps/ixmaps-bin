@@ -411,6 +411,9 @@ update ip_addr_info SET p_status='G',lat=45.42,long=-75.68,gl_override=2 where $
 update ip_addr_info SET p_status='G',lat=45.383502,long=-75.694174,gl_override=2 where $geocorrection_type and asnum=26677 and hostname like '%CARLETON-ORION%';
 update ip_addr_info SET p_status='G',lat=43.769956,long=-79.502528,gl_override=2 where $geocorrection_type and asnum=802 and hostname like '%yorku.ca%';
 update ip_addr_info SET p_status='G',lat=44.63,long=-63.59,gl_override=2 where $geocorrection_type and asnum=8111 and hostname like '%MSVU.CA%';
+
+update ip_addr_info SET p_status='G',lat=45.502422,long=-73.613047,gl_override=2 where $geocorrection_type and ip_addr='132.246.224.0';
+update ip_addr_info SET p_status='G',lat=45.502422,long=-73.613047,gl_override=2 where $geocorrection_type and ip_addr='132.246.4.202';
 "
 
 ##echo ""
