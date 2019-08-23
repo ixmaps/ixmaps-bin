@@ -4,9 +4,9 @@
 
 download_maxmind.py
 ```
-location: /home/ixmaps/bin/download_maxmind.py
+location: /home/ixmaps/bin/download_maxmind.sh
 purpose: update our Maxmind data store
-invocation: cronjob once per month 0 2 15 * * /home/ixmaps/bin/download_maxmind.py
+invocation: cronjob once per month 0 2 15 * * /home/ixmaps/bin/download_maxmind.sh
 ```
 
 corr-latlong.sh
