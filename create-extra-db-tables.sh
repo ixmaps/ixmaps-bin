@@ -45,7 +45,7 @@ psql ixmaps -c "select script_temp1.*,traceroute.dest,traceroute.dest_ip,tracero
 psql ixmaps -c "select script_temp2.*,as_users.short_name into full_routes from script_temp2 join as_users on script_temp2.asnum=as_users.num order by traceroute_id,hop;"
 psql ixmaps -c "select f.*,l.hop_lh,l.reached into full_routes_last_hop from full_routes as f join tr_last_hops as l on
 f.traceroute_id = l.traceroute_id_lh;"
-# the difference between full_routes and full_routes_last_hop is that last hop data is only included in the _large one. Therefore, due to the join type, some routes will be omitted from _large. In other words, full_routes.count >= full_routes_last_hop.count
+# the difference between full_routes and full_routes_last_hop is that last hop data is only included in the _last_hop one. Therefore, due to the join type, some routes will be omitted from _last_hop. In other words, full_routes.count >= full_routes_last_hop.count
 
 # SHORTCUT HERE - hop=1
 echo ""
