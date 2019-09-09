@@ -440,6 +440,12 @@ update ip_addr_info SET p_status='G',lat=$Tor151Front_lat,long=$Tor151Front_long
 
 update ip_addr_info SET p_status='G',lat=$Tor151Front_lat,long=$Tor151Front_long,gl_override=2 where $geocorrection_type and hostname like '%datacenterscanada%' and hostname like '%tor%';
 update ip_addr_info SET p_status='G',lat=43.772644,long=-79.625174,gl_override=2 where $geocorrection_type and hostname like '%datacenterscanada%' and hostname like '%vau%';
+
+update ip_addr_info SET p_status='G',lat=$Tor151Front_lat,long=$Tor151Front_long,gl_override=2 where $geocorrection_type and (hostname like '%151f%' or hostname like '%151F%') and (hostname like '%beanfield%' or hostname like '%metroloop%' or hostname like '%fibrenoire%');
+
+update ip_addr_info SET p_status='G',lat=$Tor151Front_lat,long=$Tor151Front_long,gl_override=3 where $geocorrection_type and ip_addr='104.37.64.0';
+update ip_addr_info SET p_status='G',lat=$Tor151Front_lat,long=$Tor151Front_long,gl_override=3 where $geocorrection_type and ip_addr='104.37.64.130';
+update ip_addr_info SET p_status='G',lat=$Tor151Front_lat,long=$Tor151Front_long,gl_override=3 where $geocorrection_type and ip_addr='104.37.64.129';
 "
 
 ##echo ""
@@ -1091,8 +1097,22 @@ psql ixmaps -c "
 update ip_addr_info SET p_status='G',lat=$NY_lat,long=$NY_long,gl_override=2 where $geocorrection_type and asnum=5645 and hostname like '%nyc%' and (lat=0 or lat=42.4 or lat=42.4238 or lat=42.4045 or lat=43.6667);
 
 update ip_addr_info SET p_status='G',lat=$Tor_lat,long=$Tor_long,gl_override=2 where $geocorrection_type and asnum=5645 and hostname like '%tor%' and (lat=0 or lat=42.4 or lat=42.4238 or lat=42.4045);
-update ip_addr_info SET p_status='G',lat=$Mtl_lat,long=$Mtl_long,gl_override=2 where $geocorrection_type and asnum=5645 and hostname like '%mtl%' and (lat=0 or lat=42.4 or lat=42.4238 or lat=42.4045);
+update ip_addr_info SET p_status='G',lat=$Mtl_lat,long=$Mtl_long,gl_override=2 where $geocorrection_type and asnum=5645 and hostname like '%mtl%' and (lat=0 or lat=42.4 or lat=42.4238 or lat=42.4045 or lat=43.6425 or lat=43.6667 or lat=43.8156);
+update ip_addr_info SET p_status='G',lat=$Van_lat,long=$Van_long,gl_override=2 where $geocorrection_type and (asnum=5645 or asnum=20375) and hostname like '%van.%' and (lat=0 or lat=50.2667 or lat=43.6319);
 "
+
+#echo ""
+#echo "Hurricane Electric"
+psql ixmaps -c "
+update ip_addr_info SET p_status='G',lat=$NY_lat,long=$NY_long,gl_override=2 where $geocorrection_type and hostname like '%he.net%' and hostname like '%.nyc%' and (lat=37.5483 or lat=37.751 or lat=37.5497);
+update ip_addr_info SET p_status='G',lat=$SJ_lat,long=$SJ_long,gl_override=2 where $geocorrection_type and hostname like '%he.net%' and hostname like '%.sjc%' and (lat=37.5483 or lat=37.751 or lat=46.0667 or lat=42.031 or lat=34.2011 or lat=37.5497);
+update ip_addr_info SET p_status='G',lat=$StL_lat,long=$StL_long,gl_override=2 where $geocorrection_type and hostname like '%he.net%' and hostname like '%.stl%' and (lat=37.567 or lat=37.751 or lat=47.6206 or lat=37.5497);
+
+update ip_addr_info SET p_status='G',lat=$Tor_lat,long=$Tor_long,gl_override=2 where $geocorrection_type and hostname like '%he.net%' and hostname like '%.tor%' and (lat=37.751 or lat=37.5483 or lat=37.5497 or lat=25.4687 or lat=34.0964);
+update ip_addr_info SET p_status='G',lat=$Van_lat,long=$Van_long,gl_override=2 where $geocorrection_type and hostname like '%he.net%' and hostname like '%.yvr%' and (lat=37.2304 or lat=27.5007 or lat=37.5497);
+"
+
+
 
 #echo ""
 #echo "Other specific locations"
@@ -1477,10 +1497,6 @@ update ip_addr_info SET p_status='G',lat=$Tor_lat,long=$Tor_long,gl_override=1 w
 update ip_addr_info SET p_status='G',lat=$Tor_lat,long=$Tor_long,gl_override=1 where $geocorrection_type and ip_addr='104.195.128.181';
 update ip_addr_info SET p_status='G',lat=$Tor_lat,long=$Tor_long,gl_override=1 where $geocorrection_type and ip_addr='104.195.128.37';
 update ip_addr_info SET p_status='G',lat=$Tor_lat,long=$Tor_long,gl_override=1 where $geocorrection_type and ip_addr='64.230.101.0';
-
-update ip_addr_info SET p_status='G',lat=$Tor151Front_lat,long=$Tor151Front_long,gl_override=2 where $geocorrection_type and ip_addr='104.37.64.49';
-update ip_addr_info SET p_status='G',lat=$Tor151Front_lat,long=$Tor151Front_long,gl_override=2 where $geocorrection_type and ip_addr='104.37.64.0';
-update ip_addr_info SET p_status='G',lat=$Tor151Front_lat,long=$Tor151Front_long,gl_override=2 where $geocorrection_type and ip_addr='104.37.64.29';
 
 update ip_addr_info SET p_status='G',lat=$Scarb_lat,long=$Scarb_long,gl_override=3 where $geocorrection_type and ip_addr='64.86.85.2';
 
