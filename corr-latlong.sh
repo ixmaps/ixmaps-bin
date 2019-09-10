@@ -869,28 +869,29 @@ update ip_addr_info SET p_status='G',lat=$VanNuys_lat,long=$VanNuys_long,gl_over
 #echo ""
 #echo "Tata"
 #The generic LA, Dallas and Montreal locations below can likely be made more exact
-temp_lat="(lat=45.5 or lat=24.8667 or lat=-26.3167 or lat=43.6667 or lat=6.5 or lat=42.3626 or lat=18.5392 or lat=15.5511 or lat=39.7351)"
+temp_lat="(lat=47 or lat=45.5 or lat=24.8667 or lat=-26.3167 or lat=43.6667 or lat=6.5 or lat=42.3626 or lat=18.5392 or lat=15.5511 or lat=39.7351 or lat=34.2085 or lat=40.4 or lat=38.9266 or lat=25.7541 or lat=43.6833 or lat=45.5 or lat=28.6344 or lat=18.5333 or lat=60.1087)"
 psql ixmaps -c "
-update ip_addr_info SET p_status='G',lat=$ChiEQ_lat,long=$ChiEQ_long,gl_override=2 where $geocorrection_type and asnum=6453 and hostname like '%Chicago%' and $temp_lat;
+update ip_addr_info SET p_status='G',lat=$ChiEQ_lat,long=$ChiEQ_long,gl_override=2 where $geocorrection_type and asnum=6453 and (hostname like '%Chicago%' or hostname like '%-chicago%') and $temp_lat;
 update ip_addr_info SET p_status='G',lat=$AshEQ_lat,long=$AshEQ_long,gl_override=2 where $geocorrection_type and asnum=6453 and hostname like '%AEQ-Ashburn%' and $temp_lat;
-update ip_addr_info SET p_status='G',lat=$NYTelx_lat,long=$NYTelx_long,gl_override=2 where $geocorrection_type and asnum=6453 and (hostname like '%NYY-NewYork%' or hostname like '%NYY-New-York%' or hostname like '%NTO-NewYork%' or hostname like '%N60-NewYork%' or hostname like '%N0V-New-York%' or hostname like '%NTO-New-York%') and $temp_lat;
+update ip_addr_info SET p_status='G',lat=$NYTelx_lat,long=$NYTelx_long,gl_override=2 where $geocorrection_type and asnum=6453 and (hostname like '%NYY-NewYork%' or hostname like '%NYY-New-York%' or hostname like '%NTO-NewYork%' or hostname like '%N60-NewYork%' or hostname like '%N0V-New-York%' or hostname like '%NTO-New-York%' or hostname like '%N75-New-York%' or hostname like '%NW8-New-York%' or hostname like '%-new-york%') and $temp_lat;
 update ip_addr_info SET p_status='G',lat=$NYEQ_lat,long=$NYEQ_long,gl_override=2 where $geocorrection_type and asnum=6453 and hostname like '%NW8-NewYork%' and $temp_lat;
 update ip_addr_info SET p_status='G',lat=$Newark_lat,long=$Newark_long,gl_override=2 where $geocorrection_type and asnum=6453 and hostname like '%NJY-Newark%' and $temp_lat;
 update ip_addr_info SET p_status='G',lat=$AtlTelx_lat,long=$AtlTelx_long,gl_override=2 where $geocorrection_type and asnum=6453 and hostname like '%A56-Atlanta%' and $temp_lat;
-update ip_addr_info SET p_status='G',lat=$SJEQ_lat,long=$SJEQ_long,gl_override=2 where $geocorrection_type and asnum=6453 and hostname like '%SQN-SanJose%' and $temp_lat;
+update ip_addr_info SET p_status='G',lat=$SJEQ_lat,long=$SJEQ_long,gl_override=2 where $geocorrection_type and asnum=6453 and (hostname like 'SQN-San-Jose' or hostname like '%SQN-SanJose%') and $temp_lat;
 update ip_addr_info SET p_status='G',lat=$PAltEQ_lat,long=$PAltEQ_long,gl_override=2 where $geocorrection_type and asnum=6453 and hostname like '%PDI-PaloAlto%' and $temp_lat;
 update ip_addr_info SET p_status='G',lat=$SeaEQ_lat,long=$SeaEQ_long,gl_override=2 where $geocorrection_type and asnum=6453 and hostname like '%Seattle%' and $temp_lat;
-update ip_addr_info SET p_status='G',lat=$LAEQ_lat,long=$LAEQ_long,gl_override=2 where $geocorrection_type and asnum=6453 and hostname like '%EQL-LosAngeles%' and $temp_lat;
-update ip_addr_info SET p_status='G',lat=$LA_lat,long=$LA_long,gl_override=2 where $geocorrection_type and asnum=6453 and (hostname like '%LAA-LosAngeles%' or hostname like '%LVW-LosAngeles%' or hostname like '%LVW-Los-Angeles%') and $temp_lat;
+update ip_addr_info SET p_status='G',lat=$LAEQ_lat,long=$LAEQ_long,gl_override=2 where $geocorrection_type and asnum=6453 and (hostname like 'EQL-Los-Angeles' or hostname like '%EQL-LosAngeles%') and $temp_lat;
+update ip_addr_info SET p_status='G',lat=$LA_lat,long=$LA_long,gl_override=2 where $geocorrection_type and asnum=6453 and (hostname like '%LAA-LosAngeles%' or hostname like '%LVW-LosAngeles%' or hostname like '%LVW-Los-Angeles%' or hostname like '%lvw-los-angeles%') and $temp_lat;
 update ip_addr_info SET p_status='G',lat=$DalEQ_lat,long=$DalEQ_long,gl_override=2 where $geocorrection_type and asnum=6453 and hostname like '%DTX-Dallas%' and $temp_lat;
 update ip_addr_info SET p_status='G',lat=$DalTelx_lat,long=$DalTelx_long,gl_override=2 where $geocorrection_type and asnum=6453 and hostname like '%DT1-Dallas%' and $temp_lat;
 update ip_addr_info SET p_status='G',lat=$Dal_lat,long=$Dal_long,gl_override=2 where $geocorrection_type and asnum=6453 and hostname like '%DT8-Dallas%' and $temp_lat;
+update ip_addr_info SET p_status='G',lat=$Mia_lat,long=$Mia_long,gl_override=2 where $geocorrection_type and asnum=6453 and hostname like '%MLN-Miami%' and $temp_lat;
 
-update ip_addr_info SET p_status='G',lat=45.482146,long=-73.540078,gl_override=2 where $geocorrection_type and asnum=6453 and hostname like '%MTT-Montreal%' and $temp_lat;
+update ip_addr_info SET p_status='G',lat=45.482146,long=-73.540078,gl_override=2 where $geocorrection_type and asnum=6453 and (hostname like '%-montreal%' or hostname like '%MTT-Montreal%') and $temp_lat;
 update ip_addr_info SET p_status='G',lat=$MtlCANIX_long,long=$MtlCANIX_lat,gl_override=2 where $geocorrection_type and asnum=6453 and hostname like '%W2C-Montreal%' and $temp_lat;
 update ip_addr_info SET p_status='G',lat=$Mtl_lat,long=$Mtl_long,gl_override=2 where $geocorrection_type and asnum=6453 and hostname like '%W6C-Montreal%' and $temp_lat;
 update ip_addr_info SET p_status='G',lat=$VanHarbourC_lat,long=$VanHarbourC_long,gl_override=2 where $geocorrection_type and asnum=6453 and hostname like '%Vancouver%' and $temp_lat;
-update ip_addr_info SET p_status='G',lat=$Tor_lat,long=$Tor_long,gl_override=2 where $geocorrection_type and asnum=6453 and hostname like '%Toronto%' and $temp_lat;
+update ip_addr_info SET p_status='G',lat=$Tor_lat,long=$Tor_long,gl_override=2 where $geocorrection_type and asnum=6453 and (hostname like '%Toronto%' or hostname like '%toronto%') and $temp_lat;
 update ip_addr_info SET p_status='G',lat=43.799505,long=-79.199788,gl_override=2 where $geocorrection_type and asnum=6453 and hostname like '%Scarborough%' and $temp_lat;
 
 update ip_addr_info SET p_status='G',lat=52.303106,long=4.937957,gl_override=2 where $geocorrection_type and asnum=6453 and hostname like '%Amsterdam%';
@@ -1103,16 +1104,22 @@ update ip_addr_info SET p_status='G',lat=$Van_lat,long=$Van_long,gl_override=2 w
 
 #echo ""
 #echo "Hurricane Electric"
+temp_lat="(lat=0 or lat=37.751 or lat=37.5483 or lat=37.5497 or lat=46.0667 or lat=42.031 or lat=34.2011 or lat=47.6206 or lat=25.4687 or lat=34.0964 or lat=37.2304 or lat=27.5007 or lat=37.5155 or lat=40.7331 or lat=40.4855 or lat=37.3697 or lat=38.4782 or lat=39.4411 or lat=31.6743 or lat=43.8693 or lat=44.937 or lat=32.9024 or lat=40.7619 or lat=38.6667 or lat=37.7758 or lat=45.6079 or lat=41.8267 or lat=33.8138 or lat=43.7103 or lat=41.6489)"
 psql ixmaps -c "
-update ip_addr_info SET p_status='G',lat=$NY_lat,long=$NY_long,gl_override=2 where $geocorrection_type and hostname like '%he.net%' and hostname like '%.nyc%' and (lat=37.5483 or lat=37.751 or lat=37.5497);
-update ip_addr_info SET p_status='G',lat=$SJ_lat,long=$SJ_long,gl_override=2 where $geocorrection_type and hostname like '%he.net%' and hostname like '%.sjc%' and (lat=37.5483 or lat=37.751 or lat=46.0667 or lat=42.031 or lat=34.2011 or lat=37.5497);
-update ip_addr_info SET p_status='G',lat=$StL_lat,long=$StL_long,gl_override=2 where $geocorrection_type and hostname like '%he.net%' and hostname like '%.stl%' and (lat=37.567 or lat=37.751 or lat=47.6206 or lat=37.5497);
+update ip_addr_info SET p_status='G',lat=$NY_lat,long=$NY_long,gl_override=2 where $geocorrection_type and hostname like '%he.net%' and hostname like '%.nyc%' and and $temp_lat;
+update ip_addr_info SET p_status='G',lat=$SJ_lat,long=$SJ_long,gl_override=2 where $geocorrection_type and hostname like '%he.net%' and hostname like '%.sjc%' and and $temp_lat;
+update ip_addr_info SET p_status='G',lat=$StL_lat,long=$StL_long,gl_override=2 where $geocorrection_type and hostname like '%he.net%' and hostname like '%.stl%' and and $temp_lat;
+update ip_addr_info SET p_status='G',lat=$Por_lat,long=$Por_long,gl_override=2 where $geocorrection_type and hostname like '%he.net%' and hostname like '%.pdx%' and and $temp_lat;
+update ip_addr_info SET p_status='G',lat=$Det_lat,long=$Det_long,gl_override=2 where $geocorrection_type and hostname like '%he.net%' and hostname like '%.det%' and and $temp_lat;
+update ip_addr_info SET p_status='G',lat=$Mia_lat,long=$Mia_long,gl_override=2 where $geocorrection_type and hostname like '%he.net%' and hostname like '%.mia%' and and $temp_lat;
+update ip_addr_info SET p_status='G',lat=$Chi_lat,long=$Chi_long,gl_override=2 where $geocorrection_type and hostname like '%he.net%' and hostname like '%.chi%' and and $temp_lat;
+update ip_addr_info SET p_status='G',lat=$Sea_lat,long=$Sea_long,gl_override=2 where $geocorrection_type and hostname like '%he.net%' and hostname like '%.sea%' and and $temp_lat;
+update ip_addr_info SET p_status='G',lat=$Dal_lat,long=$Dal_long,gl_override=2 where $geocorrection_type and hostname like '%he.net%' and hostname like '%.dal%' and and $temp_lat;
 
-update ip_addr_info SET p_status='G',lat=$Tor_lat,long=$Tor_long,gl_override=2 where $geocorrection_type and hostname like '%he.net%' and hostname like '%.tor%' and (lat=37.751 or lat=37.5483 or lat=37.5497 or lat=25.4687 or lat=34.0964);
-update ip_addr_info SET p_status='G',lat=$Van_lat,long=$Van_long,gl_override=2 where $geocorrection_type and hostname like '%he.net%' and hostname like '%.yvr%' and (lat=37.2304 or lat=27.5007 or lat=37.5497);
+update ip_addr_info SET p_status='G',lat=$Tor_lat,long=$Tor_long,gl_override=2 where $geocorrection_type and hostname like '%he.net%' and hostname like '%.tor%' and and $temp_lat;
+update ip_addr_info SET p_status='G',lat=$Van_lat,long=$Van_long,gl_override=2 where $geocorrection_type and hostname like '%he.net%' and hostname like '%.yvr%' and and $temp_lat;
+update ip_addr_info SET p_status='G',lat=$Calg_lat,long=$Calg_long,gl_override=2 where $geocorrection_type and hostname like '%he.net%' and hostname like '%.yyc%' and and $temp_lat;
 "
-
-
 
 #echo ""
 #echo "Other specific locations"
