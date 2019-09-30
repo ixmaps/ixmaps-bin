@@ -14,4 +14,4 @@ json="var dbStats = {
   'latest_contribution': '"$latestTraceroute"'
 }"
 
-echo $json > /var/www/ixmaps/_includes/db-stats.json
+echo $json > /srv/www/website/_includes/db-stats.json
