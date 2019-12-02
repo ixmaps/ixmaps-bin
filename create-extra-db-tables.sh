@@ -32,6 +32,7 @@
     psql ixmaps -c "drop table if exists us_to_us_nsa;"
     psql ixmaps -c "drop table if exists us_to_us_non_nsa;"
     psql ixmaps -c "drop table if exists ca_origin_us_destination;"
+    psql ixmaps -c "drop table if exists ca_origin_traverses_us;"
 #else
 #    echo "If the script fails, please rerun and choose to drop old tables"
 #fi
@@ -126,13 +127,20 @@ psql ixmaps -c "select full_routes_last_hop.* into ca_origin_us_destination from
 full_routes_last_hop.traceroute_id=script_temp9.traceroute_id order by full_routes_last_hop.traceroute_id, full_routes_last_hop.hop;"
 
 echo ""
+echo "Generating ca_origin_traverses_us..."
+psql ixmaps -c "select full_routes_last_hop.* into temp10 from full_routes_last_hop join ca_origin on
+full_routes_last_hop.traceroute_id=ca_origin.traceroute_id order by full_routes_last_hop.traceroute_id, full_routes_last_hop.hop;"
+psql ixmaps -c "select * into ca_origin_traverses_us from temp10 where traceroute_id in (select distinct traceroute_id from temp10 where mm_country='US' and lat!=38);"
+
+echo ""
 echo "Cleaning up temp tables..."
-psql ixmaps -c "drop table script_temp1;"
-psql ixmaps -c "drop table script_temp2;"
-psql ixmaps -c "drop table script_temp3;"
-psql ixmaps -c "drop table script_temp4;"
-psql ixmaps -c "drop table script_temp5;"
-psql ixmaps -c "drop table script_temp6;"
-psql ixmaps -c "drop table script_temp7;"
-psql ixmaps -c "drop table script_temp8;"
-psql ixmaps -c "drop table script_temp9;"
+psql ixmaps -c "drop table if exists script_temp1;"
+psql ixmaps -c "drop table if exists script_temp2;"
+psql ixmaps -c "drop table if exists script_temp3;"
+psql ixmaps -c "drop table if exists script_temp4;"
+psql ixmaps -c "drop table if exists script_temp5;"
+psql ixmaps -c "drop table if exists script_temp6;"
+psql ixmaps -c "drop table if exists script_temp7;"
+psql ixmaps -c "drop table if exists script_temp8;"
+psql ixmaps -c "drop table if exists script_temp9;"
+psql ixmaps -c "drop table if exists script_temp10;"
