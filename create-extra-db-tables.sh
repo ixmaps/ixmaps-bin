@@ -128,9 +128,9 @@ full_routes_last_hop.traceroute_id=script_temp9.traceroute_id order by full_rout
 
 echo ""
 echo "Generating ca_origin_traverses_us..."
-psql ixmaps -c "select full_routes_last_hop.* into temp10 from full_routes_last_hop join ca_origin on
+psql ixmaps -c "select full_routes_last_hop.* into script_temp10 from full_routes_last_hop join ca_origin on
 full_routes_last_hop.traceroute_id=ca_origin.traceroute_id order by full_routes_last_hop.traceroute_id, full_routes_last_hop.hop;"
-psql ixmaps -c "select * into ca_origin_traverses_us from temp10 where traceroute_id in (select distinct traceroute_id from temp10 where mm_country='US' and lat!=38);"
+psql ixmaps -c "select * into ca_origin_traverses_us from script_temp10 where traceroute_id in (select distinct traceroute_id from script_temp10 where mm_country='US' and lat!=38);"
 
 echo ""
 echo "Cleaning up temp tables..."
