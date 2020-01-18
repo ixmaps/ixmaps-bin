@@ -727,7 +727,7 @@ update ip_addr_info SET p_status='G',lat=$PAlt_lat,long=$PAlt_long,gl_override=2
 
 #echo ""
 #echo "Bell"
-temp_lat="(lat=60 or lat=45.42 or lat=45.4167 or lat=45.4667 or lat=43.6667 or lat=37.555 or lat=43.6425)"
+temp_lat="(lat=60 or lat=45.42 or lat=45.4167 or lat=45.4667 or lat=43.6667 or lat=37.555 or lat=43.6425 or lat=45.3333)"
 psql ixmaps -c "
 update ip_addr_info SET p_status='G',lat=$Chi_lat,long=$Chi_long,gl_override=1 where $geocorrection_type and hostname like '%.bell.ca%' and hostname not like '%swbell%' and hostname like '%hicago%' and $temp_lat;
 update ip_addr_info SET p_status='G',lat=$NY_lat,long=$NY_long,gl_override=1 where $geocorrection_type and hostname like '%.bell.ca%' and hostname not like '%swbell%' and (hostname like '%NewYork%' or hostname like '%NY.net.ball.ca%' or hostname like '%NEWYORK%' or hostname like '%newyork%') and $temp_lat;
@@ -1906,6 +1906,7 @@ update ip_addr_info SET p_status='G',lat=41.387187,long=2.111025,gl_override=999
 psql ixmaps -c "
 update ip_addr_info SET p_status='G',lat=$NY_lat,long=$NY_long,gl_override=201 where $geocorrection_type and hostname='te2-8.mpd01.lax05.atlas.cogentco.com';
 update ip_addr_info SET p_status='G',lat=$Chi_lat,long=$Chi_long,gl_override=201 where $geocorrection_type and hostname='ge-1-3-0.mpr2.dca2.us.above.net';
+update ip_addr_info SET p_status='G',lat=$Mtl_lat,long=$Mtl_long,gl_override=201 where $geocorrection_type and ip_addr='154.54.43.22';
 "
 
 #echo ""
