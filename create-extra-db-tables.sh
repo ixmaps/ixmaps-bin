@@ -7,46 +7,33 @@
 
 #NSA_cities="mm_city like '%San Francisco%' or mm_city like '%Los Angeles%' or mm_city like '%New York%' or mm_city like '%Chicago%' or mm_city like '%Dallas%' or mm_city like '%Atlanta%' or mm_city like '%Washington%' or mm_city like '%Seattle%' or mm_city like '%San Jose%' or mm_city like '%San Diego%' or mm_city like '%Miami%' or mm_city like '%Boston%' or mm_city like '%Phoenix%' or mm_city like '%Salt Lake City%' or mm_city like '%Nashville%' or mm_city like '%Denver%' or mm_city like '%Portland%' or mm_city like '%St Louis%' or mm_city like '%Bluffdale%' or mm_city like '%Houston%'"
 
+psql ixmaps -c "drop table if exists full_routes;"
+psql ixmaps -c "drop table if exists full_routes_last_hop;"
+psql ixmaps -c "drop table if exists ca_origin;"
+psql ixmaps -c "drop table if exists ca_destination;"
+psql ixmaps -c "drop table if exists ca_origin_ca_destination;"
+psql ixmaps -c "drop table if exists boomerang_routes;"
+psql ixmaps -c "drop table if exists non_boomerang_routes;"
+psql ixmaps -c "drop table if exists nsa_routes;"
+psql ixmaps -c "drop table if exists ca_to_ca_nsa;"
+psql ixmaps -c "drop table if exists ca_to_ca_non_nsa;"
+psql ixmaps -c "drop table if exists us_origin;"
+psql ixmaps -c "drop table if exists us_destination;"
+psql ixmaps -c "drop table if exists us_origin_us_destination;"
+psql ixmaps -c "drop table if exists us_to_us_nsa;"
+psql ixmaps -c "drop table if exists us_to_us_non_nsa;"
+psql ixmaps -c "drop table if exists ca_origin_us_destination;"
+psql ixmaps -c "drop table if exists ca_origin_traverses_us;"
 
 
-#echo "This script is designed to create some useful extra tables in the IXmaps database"
-#if [ -z "$1" ]; then
-#	echo -e "Do you want to drop old versions of the tables? (y/n) \c"
-#	read input
-#else
-#	input=$1
-#fi
-#if [ $input = "y" ]; then
-    psql ixmaps -c "drop table if exists full_routes;"
-    psql ixmaps -c "drop table if exists full_routes_last_hop;"
-    psql ixmaps -c "drop table if exists ca_origin;"
-    psql ixmaps -c "drop table if exists ca_destination;"
-    psql ixmaps -c "drop table if exists ca_origin_ca_destination;"
-    psql ixmaps -c "drop table if exists boomerang_routes;"
-    psql ixmaps -c "drop table if exists non_boomerang_routes;"
-    psql ixmaps -c "drop table if exists nsa_routes;"
-    psql ixmaps -c "drop table if exists ca_to_ca_nsa;"
-    psql ixmaps -c "drop table if exists ca_to_ca_non_nsa;"
-    psql ixmaps -c "drop table if exists us_origin;"
-    psql ixmaps -c "drop table if exists us_destination;"
-    psql ixmaps -c "drop table if exists us_origin_us_destination;"
-    psql ixmaps -c "drop table if exists us_to_us_nsa;"
-    psql ixmaps -c "drop table if exists us_to_us_non_nsa;"
-    psql ixmaps -c "drop table if exists ca_origin_us_destination;"
-    psql ixmaps -c "drop table if exists ca_origin_traverses_us;"
-#else
-#    echo "If the script fails, please rerun and choose to drop old tables"
-#fi
-
-# SHORTCUT HERE = attempt=1
+# SHORTCUT HERE = attempt=1 - NO LONGER, DELETE ME EVENTUALLY
 echo ""
 echo "Generating full_routes_last_hop..."
-psql ixmaps -c "select t.traceroute_id,t.hop,i.ip_addr,i.hostname,i.asnum,i.mm_lat,i.mm_long,i.lat,i.long,i.mm_city,i.mm_region,i.mm_country,i.mm_postal,i.gl_override into script_temp1 from
-ip_addr_info as i join tr_item as t on i.ip_addr=t.ip_addr where attempt=1;"
+psql ixmaps -c "select traceroute_id, hop, ip_addr, r[1] rtt1, r[2] rtt2, r[3] rtt3, r[4] rtt4 into script_temp0 from (select traceroute_id, hop, array_agg(rtt_ms) r from tr_item group by hop, 1 order by 1) z;"
+psql ixmaps -c "select st0.traceroute_id,st0.hop,i.ip_addr,i.hostname,i.asnum,i.mm_lat,i.mm_long,i.lat,i.long,i.mm_city,i.mm_region,i.mm_country,i.mm_postal,i.gl_override,st0.rtt1,st0.rtt2,st0.rtt3,st0.rtt4 into script_temp1 from ip_addr_info as i join script_temp0 as st0 on i.ip_addr=st0.ip_addr;"
 psql ixmaps -c "select script_temp1.*,traceroute.dest,traceroute.dest_ip,traceroute.sub_time,traceroute.submitter,traceroute.zip_code into script_temp2 from script_temp1 join traceroute on script_temp1.traceroute_id=traceroute.id;"
 psql ixmaps -c "select script_temp2.*,as_users.short_name into full_routes from script_temp2 join as_users on script_temp2.asnum=as_users.num order by traceroute_id,hop;"
-psql ixmaps -c "select f.*,l.hop_lh,l.reached into full_routes_last_hop from full_routes as f join tr_last_hops as l on
-f.traceroute_id = l.traceroute_id_lh;"
+psql ixmaps -c "select f.*,l.hop_lh,l.reached into full_routes_last_hop from full_routes as f join tr_last_hops as l on f.traceroute_id = l.traceroute_id_lh;"
 # the difference between full_routes and full_routes_last_hop is that last hop data is only included in the _last_hop one. Therefore, due to the join type, some routes will be omitted from _last_hop. In other words, full_routes.count >= full_routes_last_hop.count
 
 # SHORTCUT HERE - hop=1
@@ -68,10 +55,9 @@ psql ixmaps -c "select full_routes_last_hop.* into ca_origin_ca_destination from
 full_routes_last_hop.traceroute_id=script_temp3.traceroute_id order by full_routes_last_hop.traceroute_id, full_routes_last_hop.hop;"
 
 # we are now ignoring any routes with generic locations. Therefore, count of boom + non_boom != ca_ori_ca_dest
-# think about including 37.751, the new maxmind generic location
 echo ""
 echo "Generating boomerang_routes..."
-psql ixmaps -c "select * into boomerang_routes from ca_origin_ca_destination where traceroute_id in (select distinct traceroute_id from ca_origin_ca_destination where mm_country='US' and lat!=38);"
+psql ixmaps -c "select * into boomerang_routes from ca_origin_ca_destination where traceroute_id in (select distinct traceroute_id from ca_origin_ca_destination where mm_country='US' and lat!=38 and lat!= 37.751);"
 #psql ixmaps -c "alter table boomerang_routes drop column traceroute_id;"
 
 echo ""
@@ -141,6 +127,7 @@ psql ixmaps -c "select * into ca_origin_traverses_us from script_temp10 where tr
 
 echo ""
 echo "Cleaning up temp tables..."
+psql ixmaps -c "drop table if exists script_temp0;"
 psql ixmaps -c "drop table if exists script_temp1;"
 psql ixmaps -c "drop table if exists script_temp2;"
 psql ixmaps -c "drop table if exists script_temp3;"
