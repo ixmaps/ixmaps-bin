@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This script downloads the new version of maxmind data. It is triggered by a cronjob on the 15th of each month
-# NB: this uses an env variable for MM_LICENSE_KEY
+# NB: remember to add the license key (twice) below
 
 MM_DATA_PATH="/home/ixmaps/ix-data/mm-data"
 
