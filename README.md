@@ -34,6 +34,13 @@ purpose: concatenate all of the trsets into one giant trset (for use with the IX
 invocation: cronjob once per day   30 5 * * * /home/ixmaps/bin/concat-trsets.sh
 ```
 
+verify_trsets.py
+```
+location: /home/ixmaps/bin/verify_trsets.py
+purpose: flag trset urls that are no longer reaching their target
+invocation: cronjob once per day   30 4 * * * python /home/ixmaps/bin/verify_trsets.py
+```
+
 ## License
 Copyright (C) 2020 IXmaps.
 These scripts [github.com/ixmaps/ixmaps-bin](https://github.com/ixmaps/ixmaps-bin) are licensed under a GNU AGPL v3.0 license. All files are free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 3 of the License.
