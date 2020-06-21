@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python
 
 import psycopg2
 import psycopg2.extras
@@ -7,7 +7,7 @@ from requests.exceptions import ConnectionError
 
 def main():
   try:
-    conn = psycopg2.connect("dbname='ixmaps' user='ixmaps' host='localhost'")
+    conn = psycopg2.connect("dbname='ixmaps' user='ixmaps' host='localhost' password=''")
   except:
     print "I am unable to connect to the database"
   cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -17,7 +17,7 @@ def main():
   conn.close()
 
 def verify(conn, cur):
-  cur.execute("""SELECT url FROM trset_targets""")
+  cur.execute("""SELECT url FROM trset_target""")
   rows = cur.fetchall()
   for row in rows:
     url = row['url']
@@ -31,7 +31,7 @@ def verify(conn, cur):
       request = requests.get(url, timeout=10)
     except requests.exceptions.RequestException as e:
       print('Unreachable')
-      query = """UPDATE trset_targets SET reachable = false WHERE url=%s;"""
+      query = """UPDATE trset_target SET reachable = false WHERE url=%s;"""
       data = (row['url'],)
       cur.execute(query, data)
       conn.commit()
