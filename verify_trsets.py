@@ -1,12 +1,13 @@
 #!/usr/bin/python
 
+# This script confirms whether the trset URLs are all valid. It is triggered by a cronjob every night.
+# NB: remember to update the password as required on the server
+
 import psycopg2
 import psycopg2.extras
-import requests
-from requests.exceptions import ConnectionError
-
-# START HERE - is cbc.ca still unreachable on the server? If no, revert all these changes...
-# If we're still getting a lot of false negatives, what about ping instead of request?
+# import requests
+# from requests.exceptions import ConnectionError
+import subprocess
 
 
 def main():
@@ -20,28 +21,17 @@ def main():
 
   conn.close()
 
-  # www.calma.qc.ca should fail
-  # homedepot.com should succeed
-  # cbc.ca should succeed
-  # 23.239.6.109 fails with both
-  # 65.19.143.9 fails with request, succeeds with ping
 
+def ping(host):
+  """
+  Returns True if host (str) responds to a ping request.
+  Remember that a host may not respond to a ping (ICMP) request even if the host name is valid.
+  """
 
-  # url = 'cbc.ca'
-  # url = url.replace("http://", '')
-  # url = url.replace("https://", '')
-  # url = "http://" + url
-  # try:
-  #   request = requests.get(url, timeout=10)
-  # except requests.exceptions.RequestException as e:
-  #   print('Unreachable!')
-  # else:
-  #   print(url+' is reachable...')
+  # Building the command
+  command = ['ping', '-c', '1', host]
 
-  # if ping('cbc.ca'):
-  #   print("Ping says this is reachable")
-  # else:
-  #   print("Ping says unreachable!")
+  return subprocess.call(command) == 0
 
 
 def verify(conn, cur):
@@ -49,41 +39,33 @@ def verify(conn, cur):
   rows = cur.fetchall()
   for row in rows:
     url = row['url']
-    print "Verifying:", url
+    print "Verifying: ", url
 
-    # cleanup, as request requires very specific formatting (http://xyz.abc)
-    url = url.replace("http://", '')
-    url = url.replace("https://", '')
-    url = "http://" + url
-    try:
-      request = requests.get(url, timeout=10)
-      print(url+' is reachable...')
-      update_reachable(row['url'], 'true', conn, cur)
-    except requests.exceptions.RequestException as e:
-      print('Unreachable')
-      update_reachable(row['url'], 'false', conn, cur)
+    if ping(url):
+      print("Reachable")
+      update_reachable(url, 'true', conn, cur)
+    else:
+      print(url+" is unreachable...")
+      update_reachable(url, 'false', conn, cur)
 
-import platform    # For getting the operating system name
-import subprocess  # For executing a shell command
+    # request requires very specific formatting (http://xyz.abc)
+    # url = url.replace("http://", '')
+    # url = url.replace("https://", '')
+    # url = "http://" + url
+    # try:
+    #   request = requests.get(url, timeout=10)
+    #   print('Reachable')
+    #   update_reachable(row['url'], 'true', conn, cur)
+    # except requests.exceptions.RequestException as e:
+    #   print(url+' is unreachable...')
+    #   update_reachable(row['url'], 'false', conn, cur)
 
-def ping(host):
-    """
-    Returns True if host (str) responds to a ping request.
-    Remember that a host may not respond to a ping (ICMP) request even if the host name is valid.
-    """
-
-    # Option for the number of packets as a function of
-    param = '-n' if platform.system().lower()=='windows' else '-c'
-
-    # Building the command. Ex: "ping -c 1 google.com"
-    command = ['ping', param, '1', host]
-
-    return subprocess.call(command) == 0
 
 def update_reachable(url, flag, conn, cur):
   query = """UPDATE trset_target SET reachable=%s WHERE url=%s;"""
   data = (flag, url,)
   cur.execute(query, data)
   conn.commit()
+
 
 main()
