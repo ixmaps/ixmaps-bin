@@ -8,11 +8,14 @@ import psycopg2.extras
 # import requests
 # from requests.exceptions import ConnectionError
 import subprocess
-
+import json
 
 def main():
+  with open('config.json') as f:
+    config = json.load(f)
+
   try:
-    conn = psycopg2.connect("dbname='ixmaps' user='ixmaps' host='localhost' password=''")
+    conn = psycopg2.connect("dbname='"+config['dbname']+"' user='"+config['dbuser']+"' host='localhost' password='"+config['dbpassword']+"'")
   except:
     print "I am unable to connect to the database"
   cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -23,14 +26,7 @@ def main():
 
 
 def ping(host):
-  """
-  Returns True if host (str) responds to a ping request.
-  Remember that a host may not respond to a ping (ICMP) request even if the host name is valid.
-  """
-
-  # Building the command
   command = ['ping', '-c', '1', host]
-
   return subprocess.call(command) == 0
 
 
