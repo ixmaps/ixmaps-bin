@@ -38,10 +38,10 @@ def verify(conn, cur):
     print "Verifying: ", url
 
     if ping(url):
-      print("Reachable")
+      print "Reachable\n\n"
       update_reachable(url, 'true', conn, cur)
     else:
-      print(url+" is unreachable...")
+      print(url+" is unreachable...\n\n")
       update_reachable(url, 'false', conn, cur)
 
     # request requires very specific formatting (http://xyz.abc)
