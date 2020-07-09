@@ -5,9 +5,9 @@
 
 import psycopg2
 import psycopg2.extras
-# import requests
-# from requests.exceptions import ConnectionError
-import subprocess
+import requests
+from requests.exceptions import ConnectionError
+# import subprocess
 import json
 
 def main():
@@ -25,36 +25,36 @@ def main():
   conn.close()
 
 
-def ping(host):
-  command = ['ping', '-c', '1', host]
-  return subprocess.call(command) == 0
+# def ping(host):
+#   command = ['ping', '-c', '1', host]
+#   return subprocess.call(command) == 0
 
 
 def verify(conn, cur):
-  cur.execute("""SELECT url FROM trset_target""")
+  cur.execute("""SELECT url FROM trset_target ORDER BY id""")
   rows = cur.fetchall()
   for row in rows:
     url = row['url']
     print "Verifying: ", url
 
-    if ping(url):
-      print "Reachable\n\n"
-      update_reachable(url, 'true', conn, cur)
-    else:
-      print(url+" is unreachable...\n\n")
-      update_reachable(url, 'false', conn, cur)
+    # if ping(url):
+    #   print "Reachable\n\n"
+    #   update_reachable(url, 'true', conn, cur)
+    # else:
+    #   print(url+" is unreachable...\n\n")
+    #   update_reachable(url, 'false', conn, cur)
 
     # request requires very specific formatting (http://xyz.abc)
-    # url = url.replace("http://", '')
-    # url = url.replace("https://", '')
-    # url = "http://" + url
-    # try:
-    #   request = requests.get(url, timeout=10)
-    #   print('Reachable')
-    #   update_reachable(row['url'], 'true', conn, cur)
-    # except requests.exceptions.RequestException as e:
-    #   print(url+' is unreachable...')
-    #   update_reachable(row['url'], 'false', conn, cur)
+    url = url.replace("http://", '')
+    url = url.replace("https://", '')
+    url = "http://" + url
+    try:
+      request = requests.get(url, timeout=10)
+      print('Reachable')
+      update_reachable(row['url'], 'true', conn, cur)
+    except requests.exceptions.RequestException as e:
+      print(url+' is unreachable...')
+      update_reachable(row['url'], 'false', conn, cur)
 
 
 def update_reachable(url, flag, conn, cur):
