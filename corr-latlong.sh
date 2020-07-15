@@ -1521,7 +1521,12 @@ update ip_addr_info SET p_status='G',lat=$Tor_lat,long=$Tor_long,gl_override=2 w
 update ip_addr_info SET p_status='G',lat=$Tor_lat,long=$Tor_long,gl_override=2 where $geocorrection_type and ip_addr='38.122.100.209';
 update ip_addr_info SET p_status='G',lat=$Tor_lat,long=$Tor_long,gl_override=2 where $geocorrection_type and ip_addr='38.88.240.86';
 update ip_addr_info SET p_status='G',lat=$Tor_lat,long=$Tor_long,gl_override=2 where $geocorrection_type and ip_addr='38.88.240.85';
-
+update ip_addr_info SET p_status='G',lat=$Tor_lat,long=$Tor_long,gl_override=2 where $geocorrection_type and ip_addr='64.125.14.231';
+update ip_addr_info SET p_status='G',lat=$Tor_lat,long=$Tor_long,gl_override=2 where $geocorrection_type and ip_addr='7.11.166.105';
+update ip_addr_info SET p_status='G',lat=$Tor_lat,long=$Tor_long,gl_override=2 where $geocorrection_type and ip_addr='67.231.222.9';
+update ip_addr_info SET p_status='G',lat=$Tor_lat,long=$Tor_long,gl_override=2 where $geocorrection_type and ip_addr='69.63.252.246';
+update ip_addr_info SET p_status='G',lat=$Tor_lat,long=$Tor_long,gl_override=2 where $geocorrection_type and ip_addr='213.248.88.47';
+update ip_addr_info SET p_status='G',lat=$Tor_lat,long=$Tor_long,gl_override=2 where $geocorrection_type and ip_addr='173.182.207.192';
 
 update ip_addr_info SET p_status='G',lat=$Scarb_lat,long=$Scarb_long,gl_override=3 where $geocorrection_type and ip_addr='64.86.85.2';
 
@@ -1620,6 +1625,7 @@ update ip_addr_info SET p_status='G',lat=$Van_lat,long=$Van_long,gl_override=3 w
 update ip_addr_info SET p_status='G',lat=$Van_lat,long=$Van_long,gl_override=3 where $geocorrection_type and ip_addr='66.51.143.33';
 update ip_addr_info SET p_status='G',lat=$Van_lat,long=$Van_long,gl_override=3 where $geocorrection_type and ip_addr='66.163.64.81';
 update ip_addr_info SET p_status='G',lat=$Van_lat,long=$Van_long,gl_override=3 where $geocorrection_type and ip_addr='64.230.77.22';
+update ip_addr_info SET p_status='G',lat=$Van_lat,long=$Van_long,gl_override=3 where $geocorrection_type and ip_addr='66.163.78.177';
 
 update ip_addr_info SET p_status='G',lat=$Victoria_lat,long=$Victoria_long,gl_override=3 where $geocorrection_type and ip_addr='66.163.77.62';
 update ip_addr_info SET p_status='G',lat=$Victoria_lat,long=$Victoria_long,gl_override=3 where $geocorrection_type and ip_addr='66.163.72.22';
