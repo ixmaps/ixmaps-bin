@@ -11,7 +11,7 @@ from requests.exceptions import ConnectionError
 import json
 
 def main():
-  with open('config.json') as f:
+  with open('/home/ixmaps/bin/config.json') as f:
     config = json.load(f)
 
   try:
