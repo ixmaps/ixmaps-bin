@@ -27,13 +27,6 @@ purpose: create/update the convenience tables in the DB
 invocation: cronjob once per day   0 6 * * * /home/ixmaps/bin/create-extra-db-tables.sh
 ```
 
-concat-trsets.sh
-```
-location: /home/ixmaps/bin/concat-trsets.sh
-purpose: concatenate all of the trsets into one giant trset (for use with the IXmapsClient)
-invocation: cronjob once per day   30 5 * * * /home/ixmaps/bin/concat-trsets.sh
-```
-
 verify_trsets.py
 ```
 location: /home/ixmaps/bin/verify_trsets.py
