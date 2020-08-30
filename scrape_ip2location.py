@@ -1,12 +1,11 @@
 #!/usr/bin/python
 
-# This script scrapes ipinfo.io for geolocation values, then populates them to our ipinfo_ip_addrs table
+# This script scrapes ip2location for geolocation values, then populates them to our iplocation_ip_addrs table
 
 import json
 import re
 import psycopg2
 import psycopg2.extras
-import ipinfo
 
 def main():
   with open('/Users/colin/dev/ixmaps/ixmaps-bin/config.json') as f:
@@ -24,11 +23,13 @@ def main():
 
 
 def scrape(conn, cur):
-  # access_token = '43ad6873665f77'
-  access_token = '61a406bb0bae69'
-  handler = ipinfo.getHandler(access_token)
+  access_token = 'K973M6RdNCHz8mv'
 
-  cur.execute("""SELECT ip_addr FROM ip_addr_info WHERE ip_addr not in (SELECT ip_addr FROM ipinfo_ip_addr) AND text(ip_addr) NOT LIKE '10.%' AND text(ip_addr) NOT LIKE '100.%' AND text(ip_addr) NOT LIKE '172.%' AND text(ip_addr) NOT LIKE '192.1%' LIMIT 10000""")
+  # START HERE? OR DITCH THIS ENTIRELY
+
+  curl "https://api.ip2location.com/v2/?ip=2607:f2c0:e360:1201:a835:12e1:8b52:5799&key={access_token}&package=WS24&addon=continent,country,region,city,geotargeting,country_groupings,time_zone_info"
+
+  cur.execute("""SELECT ip_addr FROM ip_addr_info WHERE ip_addr not in (SELECT ip_addr FROM ipinfo_ip_addr) AND text(ip_addr) NOT LIKE '10.%' LIMIT 10000""")
   # cur.execute("""SELECT ip_addr FROM ip_addr_info WHERE ip_addr not in (SELECT ip_addr FROM ipinfo_ip_addr) AND (mm_country = '%s' OR mm_country = '%s') LIMIT 10000""" % ("CA", "US"))
   rows = cur.fetchall()
   for row in rows:
