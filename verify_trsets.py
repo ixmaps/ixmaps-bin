@@ -15,60 +15,60 @@ from requests.exceptions import ConnectionError
 import subprocess
 
 def main():
-  with open('/home/ixmaps/bin/config.json') as f:
-    config = json.load(f)
+    with open('/home/ixmaps/bin/config.json') as f:
+      config = json.load(f)
 
-  try:
-    conn = psycopg2.connect("dbname='"+config['dbname']+"' user='"+config['dbuser']+"' host='localhost' password='"+config['dbpassword']+"'")
-  except:
-    print "I am unable to connect to the database"
-  cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    try:
+      conn = psycopg2.connect("dbname='"+config['dbname']+"' user='"+config['dbuser']+"' host='localhost' password='"+config['dbpassword']+"'")
+    except:
+        print "I am unable to connect to the database"
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-  verify(conn, cur)
+    verify(conn, cur)
 
-  conn.close()
+    conn.close()
 
 
 def ping(host):
-  command = ['ping', '-c', '1', host]
-  return subprocess.call(command) == 0
+    command = ['ping', '-c', '1', host]
+    return subprocess.call(command) == 0
 
 
 def verify(conn, cur):
-  cur.execute("""SELECT url FROM trset_target ORDER BY id""")
-  rows = cur.fetchall()
-  for row in rows:
-    url = row['url']
-    print "Verifying: ", url
+    cur.execute("""SELECT url FROM trset_target ORDER BY id""")
+    rows = cur.fetchall()
+    for row in rows:
+        url = row['url']
+        print "Verifying: ", url
 
-    if bool(re.match('[\d/.]+$', url)):
-      print "PING"
-      if ping(url):
-        print "Reachable\n\n"
-        update_reachable(url, 'true', conn, cur)
-      else:
-        print(url+" is unreachable...\n\n")
-        update_reachable(url, 'false', conn, cur)
-    else:
-      print "GET"
-      # request requires very specific formatting (http://xyz.abc)
-      url = url.replace("http://", '')
-      url = url.replace("https://", '')
-      url = "http://" + url
-      try:
-        request = requests.get(url, timeout=10)
-        print('Reachable\n\n')
-        update_reachable(row['url'], 'true', conn, cur)
-      except requests.exceptions.RequestException as e:
-        print(url+' is unreachable...\n\n')
-        update_reachable(row['url'], 'false', conn, cur)
+        if bool(re.match('[\d/.]+$', url)):
+            print "PING"
+            if ping(url):
+                print "Reachable\n\n"
+                update_reachable(url, 'true', conn, cur)
+            else:
+                print(url+" is unreachable...\n\n")
+                update_reachable(url, 'false', conn, cur)
+        else:
+            print "GET"
+            # request requires very specific formatting (http://xyz.abc)
+            url = url.replace("http://", '')
+            url = url.replace("https://", '')
+            url = "http://" + url
+            try:
+                request = requests.get(url, timeout=10)
+                print('Reachable\n\n')
+                update_reachable(row['url'], 'true', conn, cur)
+            except requests.exceptions.RequestException as e:
+                print(url+' is unreachable...\n\n')
+                update_reachable(row['url'], 'false', conn, cur)
 
 
 def update_reachable(url, flag, conn, cur):
-  query = """UPDATE trset_target SET reachable=%s WHERE url=%s;"""
-  data = (flag, url,)
-  cur.execute(query, data)
-  conn.commit()
+    query = """UPDATE trset_target SET reachable=%s WHERE url=%s;"""
+    data = (flag, url,)
+    cur.execute(query, data)
+    conn.commit()
 
 
 main()
