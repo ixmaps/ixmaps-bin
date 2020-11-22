@@ -31,12 +31,12 @@ psql ixmaps -c "drop table if exists full_routes_last_hop;"
 
 echo ""
 echo "Generating full_routes_last_hop..."
-psql ixmaps -c "select traceroute_id, hop, ip_addr, r[1] rtt1, r[2] rtt2, r[3] rtt3, r[4] rtt4 into script_temp0 from (select traceroute_id, hop, ip_addr, array_agg(rtt_ms) r from tr_item group by hop, 1, ip_addr order by 1) z;"
-psql ixmaps -c "select st0.traceroute_id,st0.hop,i.ip_addr,i.hostname,i.asnum,i.mm_lat,i.mm_long,i.lat,i.long,i.mm_city,i.mm_region,i.mm_country,i.mm_postal,i.gl_override,st0.rtt1,st0.rtt2,st0.rtt3,st0.rtt4 into script_temp1 from ip_addr_info as i join script_temp0 as st0 on i.ip_addr=st0.ip_addr;"
-psql ixmaps -c "select script_temp1.*,traceroute.dest,traceroute.dest_ip,traceroute.sub_time,traceroute.submitter,traceroute.zip_code into script_temp2 from script_temp1 join traceroute on script_temp1.traceroute_id=traceroute.id;"
-psql ixmaps -c "select script_temp2.*,as_users.short_name into full_routes from script_temp2 join as_users on script_temp2.asnum=as_users.num order by traceroute_id,hop;"
-psql ixmaps -c "select f.*,l.hop_lh,l.reached into full_routes_last_hop from full_routes as f join tr_last_hops as l on f.traceroute_id = l.traceroute_id_lh;"
-psql ixmaps -c "drop table full_routes;"
+# psql ixmaps -c "select traceroute_id, hop, ip_addr, r[1] rtt1, r[2] rtt2, r[3] rtt3, r[4] rtt4 into script_temp0 from (select traceroute_id, hop, ip_addr, array_agg(rtt_ms) r from tr_item group by hop, 1, ip_addr order by 1) z;"
+# psql ixmaps -c "select st0.traceroute_id,st0.hop,i.ip_addr,i.hostname,i.asnum,i.mm_lat,i.mm_long,i.lat,i.long,i.mm_city,i.mm_region,i.mm_country,i.mm_postal,i.gl_override,st0.rtt1,st0.rtt2,st0.rtt3,st0.rtt4 into script_temp1 from ip_addr_info as i join script_temp0 as st0 on i.ip_addr=st0.ip_addr;"
+# psql ixmaps -c "select script_temp1.*,traceroute.dest,traceroute.dest_ip,traceroute.sub_time,traceroute.submitter,traceroute.zip_code into script_temp2 from script_temp1 join traceroute on script_temp1.traceroute_id=traceroute.id;"
+# psql ixmaps -c "select script_temp2.*,as_users.short_name into full_routes from script_temp2 join as_users on script_temp2.asnum=as_users.num order by traceroute_id,hop;"
+# psql ixmaps -c "select f.*,l.hop_lh,l.reached into full_routes_last_hop from full_routes as f join tr_last_hops as l on f.traceroute_id = l.traceroute_id_lh;"
+# psql ixmaps -c "drop table full_routes;"
 # the difference between full_routes and full_routes_last_hop is that last hop data is only included in the _last_hop one. Therefore, due to the join type, some routes will be omitted from _last_hop. In other words, full_routes.count >= full_routes_last_hop.count
 
 # SHORTCUT HERE - hop=1

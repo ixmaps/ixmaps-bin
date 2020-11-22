@@ -28,7 +28,11 @@ def scrape(conn, cur):
     access_token = '61a406bb0bae69'
     handler = ipinfo.getHandler(access_token)
 
-    cur.execute("""SELECT ip_addr FROM ip_addr_info WHERE ip_addr not in (SELECT ip_addr FROM ipinfo_ip_addr_paid) ORDER BY random() limit 10000;""")
+    # add a new column for created_at and updated_at
+    # add back the 192 and 172 filters
+    # date the tables?
+
+    cur.execute("""SELECT ip_addr FROM ip_addr_info WHERE ip_addr not in (SELECT ip_addr FROM ipinfo_ip_addr_paid) ORDER BY random() limit 50000;""")
     # cur.execute("""SELECT ip_addr FROM ip_addr_info WHERE ip_addr not in (SELECT ip_addr FROM ipinfo_ip_addr) AND text(ip_addr) NOT LIKE '10.%' AND text(ip_addr) NOT LIKE '100.%' AND text(ip_addr) NOT LIKE '172.%' AND text(ip_addr) NOT LIKE '192.1%' LIMIT 10000""")
     # cur.execute("""SELECT ip_addr FROM ip_addr_info WHERE ip_addr not in (SELECT ip_addr FROM ipinfo_ip_addr) AND (mm_country = '%s' OR mm_country = '%s') LIMIT 10000""" % ("CA", "US"))
     rows = cur.fetchall()
