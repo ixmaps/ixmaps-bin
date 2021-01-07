@@ -20,13 +20,6 @@ input flag: p_status = 'N' or p_status = 'G' or p_status = 'U'
 output flag: p_status of 'U' -> p_status of 'N'
 ```
 
-create-extra-db-tables.sh
-```
-location: /home/ixmaps/bin/create-extra-db-tables.sh
-purpose: create/update the convenience tables in the DB
-invocation: cronjob once per day   0 6 * * * /home/ixmaps/bin/create-extra-db-tables.sh
-```
-
 verify_trsets.py
 ```
 location: /home/ixmaps/bin/verify_trsets.py

@@ -16,6 +16,8 @@ def main():
         print "I am unable to connect to the database"
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
+    sys.exit("This shit is broken!")
+
     update_asnum_asname(conn, cur)
 
     cur.close()

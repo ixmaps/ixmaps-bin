@@ -17,6 +17,8 @@ def main():
         print "I am unable to connect to the database"
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
+    sys.exit("Broken!")
+
     scrape(conn, cur)
 
     conn.close()
@@ -28,7 +30,6 @@ def scrape(conn, cur):
     curl "https://api.ip2location.com/v2/?ip=2607:f2c0:e360:1201:a835:12e1:8b52:5799&key={access_token}&package=WS24&addon=continent,country,region,city,geotargeting,country_groupings,time_zone_info"
 
     cur.execute("""SELECT ip_addr FROM ip_addr_info WHERE ip_addr not in (SELECT ip_addr FROM ipinfo_ip_addr) AND text(ip_addr) NOT LIKE '10.%' LIMIT 10000""")
-    # cur.execute("""SELECT ip_addr FROM ip_addr_info WHERE ip_addr not in (SELECT ip_addr FROM ipinfo_ip_addr) AND (mm_country = '%s' OR mm_country = '%s') LIMIT 10000""" % ("CA", "US"))
     rows = cur.fetchall()
     for row in rows:
         ip = row['ip_addr']
@@ -52,6 +53,5 @@ def insert_val(details, conn, cur):
     data = (details.ip, getattr(details, 'city', ''), getattr(details, 'region', ''), getattr(details, 'country', ''), getattr(details, 'postal', '')[:11], details.latitude, details.longitude, getattr(details, 'hostname', ''),)
     cur.execute(query, data)
     conn.commit()
-
 
 main()
