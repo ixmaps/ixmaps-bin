@@ -10,9 +10,9 @@ echo "Downloading new version of MaxMind data on "$(date +%F)
 mkdir $MM_DATA_PATH/tmp
 mv $MM_DATA_PATH/* $MM_DATA_PATH/tmp/
 
-asn_zip=$(wget -O $MM_DATA_PATH/GeoLite2-ASN.tar.gz "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN&license_key=1mxPjeHXFApqyb7Su&suffix=tar.gz")
+asn_zip=$(wget -O $MM_DATA_PATH/GeoLite2-ASN.tar.gz "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN&license_key=$MM_LICENSE_KEY&suffix=tar.gz")
 asn_download_status=$?
-city_zip=$(wget -O $MM_DATA_PATH/GeoLite2-City.tar.gz "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=1mxPjeHXFApqyb7Su&suffix=tar.gz")
+city_zip=$(wget -O $MM_DATA_PATH/GeoLite2-City.tar.gz "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=$MM_LICENSE_KEY&suffix=tar.gz")
 city_download_status=$?
 
 if [ $asn_download_status -ne 0 ] || [ $city_download_status -ne 0 ]; then

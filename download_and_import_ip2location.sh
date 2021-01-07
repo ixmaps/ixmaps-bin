@@ -4,16 +4,20 @@
 # NB: remember to add the login and password below, and update the data path
 # NB: this relies on a custom perl script from https://www.ip2location.com/free/downloader
 
-IP2_DATA_PATH="/Users/colin/dev/ixmaps/ixmaps-bin"
+IP2_DATA_PATH="/home/ixmaps/bin"
 
 echo "Downloading new version of IP2Location data on "$(date +%F)
 
+echo $MM_LICENSE_KEY
+echo $IP2_EMAIL
+echo $IP2_PASSWORD
+
 # download the pieces we need
-perl download-ip2location.pl -package DB9LITE -login andrew.clement@utoronto.ca -password K973M6RdNCHz8mv
+perl download-ip2location.pl -package DB9LITE -login $IP2_EMAIL -password $IP2_PASSWORD
 unzip $IP2_DATA_PATH/IP2LOCATION-LITE-DB9.CSV.ZIP
 rm $IP2_DATA_PATH/LICENSE_LITE.TXT
 rm $IP2_DATA_PATH/README_LITE.TXT
-perl download-ip2location.pl -package DBASNLITE -login andrew.clement@utoronto.ca -password K973M6RdNCHz8mv
+perl download-ip2location.pl -package DBASNLITE -login $IP2_EMAIL -password $IP2_PASSWORD
 unzip $IP2_DATA_PATH/IP2LOCATION-LITE-ASN.ZIP
 rm $IP2_DATA_PATH/LICENSE_LITE.TXT
 rm $IP2_DATA_PATH/README_LITE.TXT
