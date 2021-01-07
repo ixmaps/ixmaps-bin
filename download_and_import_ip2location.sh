@@ -8,10 +8,6 @@ IP2_DATA_PATH="/home/ixmaps/bin"
 
 echo "Downloading new version of IP2Location data on "$(date +%F)
 
-echo $MM_LICENSE_KEY
-echo $IP2_EMAIL
-echo $IP2_PASSWORD
-
 # download the pieces we need
 perl download-ip2location.pl -package DB9LITE -login $IP2_EMAIL -password $IP2_PASSWORD
 unzip $IP2_DATA_PATH/IP2LOCATION-LITE-DB9.CSV.ZIP
