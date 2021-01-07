@@ -52,12 +52,12 @@ psql ixmaps -c "SET CLIENT_ENCODING TO 'latin1';"
 psql ixmaps -c "COPY ip2location_asn_temp FROM '$IP2_DATA_PATH/IP2LOCATION-LITE-ASN.CSV' WITH CSV QUOTE AS '\"';"
 
 # join the temp tables into the final table
-psql ixmaps -c "DROP table ip2location_ip_addr_testing"
-psql ixmaps -c "SELECT i.* ,a.asn, a.as into ip2location_ip_addr_testing from ip2location_ip_addr_temp i join ip2location_asn_temp a on i.ip_from = a.ip_from;"
+psql ixmaps -c "DROP table ip2location_ip_addr"
+psql ixmaps -c "SELECT i.* ,a.asn, a.as into ip2location_ip_addr from ip2location_ip_addr_temp i join ip2location_asn_temp a on i.ip_from = a.ip_from;"
 # table cleanup
-psql ixmaps -c "ALTER table ip2location_ip_addr_testing RENAME COLUMN country_code TO country;"
-psql ixmaps -c "ALTER table ip2location_ip_addr_testing RENAME COLUMN asn TO asnum;"
-psql ixmaps -c "ALTER table ip2location_ip_addr_testing RENAME COLUMN \"as\" TO asname;"
+psql ixmaps -c "ALTER table ip2location_ip_addr RENAME COLUMN country_code TO country;"
+psql ixmaps -c "ALTER table ip2location_ip_addr RENAME COLUMN asn TO asnum;"
+psql ixmaps -c "ALTER table ip2location_ip_addr RENAME COLUMN \"as\" TO asname;"
 psql ixmaps -c "DROP table ip2location_ip_addr_temp;"
 psql ixmaps -c "DROP table ip2location_asn_temp;"
 
