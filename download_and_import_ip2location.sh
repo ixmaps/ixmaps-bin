@@ -62,6 +62,8 @@ psql ixmaps -c "
 DROP table ip2location_ip_addr;
 SELECT i.* ,a.asn, a.as into ip2location_ip_addr from ip2location_ip_addr_temp i LEFT JOIN ip2location_asn a on i.ip_from = a.ip_from;
 ALTER table ip2location_ip_addr RENAME COLUMN country_code TO country;
+ALTER table ip2location_ip_addr RENAME COLUMN latitude TO lat;
+ALTER table ip2location_ip_addr RENAME COLUMN longitude TO long;
 ALTER table ip2location_ip_addr RENAME COLUMN asn TO asnum;
 ALTER table ip2location_ip_addr RENAME COLUMN \"as\" TO asname;
 ALTER table ip2location_ip_addr ADD COLUMN created_at timestamp with time zone DEFAULT now();
