@@ -5,6 +5,7 @@
 # NB: this relies on a custom perl script from https://www.ip2location.com/free/downloader
 
 IP2_DATA_PATH="/home/ixmaps/bin"
+# IP2_DATA_PATH="/Users/colin/dev/ixmaps/ixmaps-bin"
 
 echo "Downloading new version of IP2Location data on "$(date +%F)
 
@@ -36,30 +37,39 @@ psql ixmaps -c "CREATE TABLE ip2location_ip_addr_temp(
   longitude real NOT NULL,
   zip_code character varying(30) NOT NULL,
   CONSTRAINT ip2location_db9_pkey PRIMARY KEY (ip_from, ip_to)
-);"
-psql ixmaps -c "COPY ip2location_ip_addr_temp FROM '$IP2_DATA_PATH/IP2LOCATION-LITE-DB9.CSV' WITH CSV QUOTE AS '\"';"
+);
+COPY ip2location_ip_addr_temp FROM '$IP2_DATA_PATH/IP2LOCATION-LITE-DB9.CSV' WITH CSV QUOTE AS '\"';
+"
 
-# create and populate the asn table
-psql ixmaps -c "CREATE TABLE ip2location_asn_temp(
-  ip_from bigint NOT NULL,
-  ip_to bigint NOT NULL,
-  cidr character varying(18) NOT NULL,
-  asn character varying(10) NOT NULL,
-  \"as\" character varying(256) NOT NULL,
-  CONSTRAINT ip2location_asn_temp_pkey PRIMARY KEY (ip_from, ip_to)
-);"
-psql ixmaps -c "SET CLIENT_ENCODING TO 'latin1';"
-psql ixmaps -c "COPY ip2location_asn_temp FROM '$IP2_DATA_PATH/IP2LOCATION-LITE-ASN.CSV' WITH CSV QUOTE AS '\"';"
+# recreate and populate the asn table
+# psql ixmaps -c "DROP table ip2location_asn"
+# psql ixmaps -c "CREATE TABLE ip2location_asn(
+#   ip_from bigint NOT NULL,
+#   ip_to bigint NOT NULL,
+#   cidr character varying(18) NOT NULL,
+#   asn character varying(10) NOT NULL,
+#   \"as\" character varying(256) NOT NULL,
+#   CONSTRAINT ip2location_asn_pkey PRIMARY KEY (ip_from, ip_to)
+# );"
+psql ixmaps -c "
+DELETE from ip2location_asn;
+SET CLIENT_ENCODING TO 'latin1';
+COPY ip2location_asn FROM '$IP2_DATA_PATH/IP2LOCATION-LITE-ASN.CSV' WITH CSV QUOTE AS '\"';
+"
 
-# join the temp tables into the final table
-psql ixmaps -c "DROP table ip2location_ip_addr"
-psql ixmaps -c "SELECT i.* ,a.asn, a.as into ip2location_ip_addr from ip2location_ip_addr_temp i join ip2location_asn_temp a on i.ip_from = a.ip_from;"
-# table cleanup
-psql ixmaps -c "ALTER table ip2location_ip_addr RENAME COLUMN country_code TO country;"
-psql ixmaps -c "ALTER table ip2location_ip_addr RENAME COLUMN asn TO asnum;"
-psql ixmaps -c "ALTER table ip2location_ip_addr RENAME COLUMN \"as\" TO asname;"
-psql ixmaps -c "DROP table ip2location_ip_addr_temp;"
-psql ixmaps -c "DROP table ip2location_asn_temp;"
+# join the temp tables into the final table and cleanup
+psql ixmaps -c "
+DROP table ip2location_ip_addr;
+SELECT i.* ,a.asn, a.as into ip2location_ip_addr from ip2location_ip_addr_temp i LEFT JOIN ip2location_asn a on i.ip_from = a.ip_from;
+ALTER table ip2location_ip_addr RENAME COLUMN country_code TO country;
+ALTER table ip2location_ip_addr RENAME COLUMN asn TO asnum;
+ALTER table ip2location_ip_addr RENAME COLUMN \"as\" TO asname;
+ALTER table ip2location_ip_addr ADD COLUMN created_at timestamp with time zone DEFAULT now();
+ALTER table ip2location_ip_addr ADD COLUMN updated_at timestamp with time zone DEFAULT now();
+UPDATE ip2location_ip_addr SET created_at = now();
+UPDATE ip2location_ip_addr SET updated_at = now();
+DROP table ip2location_ip_addr_temp;
+"
 
 # dir cleanup
 rm $IP2_DATA_PATH/IP2LOCATION-LITE-DB9.CSV.ZIP
