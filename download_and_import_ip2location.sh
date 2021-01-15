@@ -7,14 +7,16 @@
 IP2_DATA_PATH="/home/ixmaps/bin"
 # IP2_DATA_PATH="/Users/colin/dev/ixmaps/ixmaps-bin"
 
+cd $IP2_DATA_PATH
+
 echo "Downloading new version of IP2Location data on "$(date +%F)
 
 # download the pieces we need
-perl download-ip2location.pl -package DB9LITE -login $IP2_EMAIL -password $IP2_PASSWORD
+perl $IP2_DATA_PATH/download-ip2location.pl -package DB9LITE -login $IP2_EMAIL -password $IP2_PASSWORD
 unzip $IP2_DATA_PATH/IP2LOCATION-LITE-DB9.CSV.ZIP
 rm $IP2_DATA_PATH/LICENSE_LITE.TXT
 rm $IP2_DATA_PATH/README_LITE.TXT
-perl download-ip2location.pl -package DBASNLITE -login $IP2_EMAIL -password $IP2_PASSWORD
+perl $IP2_DATA_PATH/download-ip2location.pl -package DBASNLITE -login $IP2_EMAIL -password $IP2_PASSWORD
 unzip $IP2_DATA_PATH/IP2LOCATION-LITE-ASN.ZIP
 rm $IP2_DATA_PATH/LICENSE_LITE.TXT
 rm $IP2_DATA_PATH/README_LITE.TXT

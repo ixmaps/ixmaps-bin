@@ -28,7 +28,7 @@ invocation: cronjob once per day   30 4 * * * python /home/ixmaps/bin/verify_trs
 ```
 
 ## License
-Copyright (C) 2020 IXmaps.
+Copyright (C) 2021 IXmaps.
 These scripts [github.com/ixmaps/ixmaps-bin](https://github.com/ixmaps/ixmaps-bin) are licensed under a GNU AGPL v3.0 license. All files are free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 3 of the License.
 
 These scripts are distributed in the hope that they will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details [gnu.org/licenses](https://gnu.org/licenses/agpl.html).
