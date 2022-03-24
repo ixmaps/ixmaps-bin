@@ -1972,9 +1972,9 @@ psql ixmaps -c "update ip_addr_info SET p_status='G',lat=$Victoria_lat,long=$Vic
 #echo ""
 #echo CIRA routers (2018/02/01)
 psql ixmaps -c "
-update ip_addr_info SET p_status='G',asnum=27299,city='Calgary',region='AB',postal='T1U2V3',lat=51.0470582,long=-114.0800723,gl_override=50 where $geocorrection_type and ip_addr='162.219.50.1';
-update ip_addr_info SET p_status='G',asnum=27299,city='Montreal',region='QC',postal='',lat=45.4971878,long=-73.5726595,gl_override=50 where $geocorrection_type and ip_addr='162.219.49.1';
-update ip_addr_info SET p_status='G',asnum=27299,city='Toronto',region='ON',postal='M5J2N1',lat=43.6446318,long=-79.3864164,gl_override=50 where $geocorrection_type and ip_addr='162.219.48.1';
+update ip_addr_info SET p_status='G',asnum=27299,mm_city='Calgary',mm_region='AB',mm_postal='T1U2V3',lat=51.0470582,long=-114.0800723,gl_override=50 where $geocorrection_type and ip_addr='162.219.50.1';
+update ip_addr_info SET p_status='G',asnum=27299,mm_city='Montreal',mm_region='QC',mm_postal='',lat=45.4971878,long=-73.5726595,gl_override=50 where $geocorrection_type and ip_addr='162.219.49.1';
+update ip_addr_info SET p_status='G',asnum=27299,mm_city='Toronto',mm_region='ON',mm_postal='M5J2N1',lat=43.6446318,long=-79.3864164,gl_override=50 where $geocorrection_type and ip_addr='162.219.48.1';
 "
 
 #echo ""
