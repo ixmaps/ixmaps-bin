@@ -297,7 +297,12 @@ Madrid_lat=40.4
 Madrid_long=-3.68
 Barcelona_lat=41.39
 Barcelona_long=2.15
-
+Geneva_lat=46.2
+Geneva_long=6.15
+Lisbon_lat=38.73
+Lisbon_long=-9.15
+Porto_lat=41.16
+Porto_long=-8.62
 
 MexCity_lat=19.43
 MexCity_long=-99.13
@@ -1882,6 +1887,36 @@ update ip_addr_info SET p_status='G',lat=$HK_lat,long=$HK_long,gl_override=3 whe
 update ip_addr_info SET p_status='G',lat=$HK_lat,long=$HK_long,gl_override=3 where $geocorrection_type and ip_addr='213.155.136.214';
 
 update ip_addr_info SET p_status='G',lat=48.9301,long=-122.725,gl_override=3 where $geocorrection_type and ip_addr='64.69.79.27';
+
+
+
+update ip_addr_info SET p_status='G',lat=$LDon_lat,long=$LDon_long,gl_override=3 where $geocorrection_type and ip_addr='195.8.1.46';
+update ip_addr_info SET p_status='G',lat=$LDon_lat,long=$LDon_long,gl_override=3 where $geocorrection_type and hostname='if-15-2.tcore2.LDN-London.as6453.net';
+update ip_addr_info SET p_status='G',lat=$LDon_lat,long=$LDon_long,gl_override=3 where $geocorrection_type and hostname='if-ae-19-2.tcore2.L78-London.as6453.net';
+update ip_addr_info SET p_status='G',lat=$LDon_lat,long=$LDon_long,gl_override=3 where $geocorrection_type and hostname='if-ae-1-3.tcore1.SV8-Highbridge.as6453.net';
+update ip_addr_info SET p_status='G',lat=$LDon_lat,long=$LDon_long,gl_override=3 where $geocorrection_type and hostname='lon1-cr1-be1.cprm.net';
+update ip_addr_info SET p_status='G',lat=$LDon_lat,long=$LDon_long,gl_override=3 where $geocorrection_type and hostname='lon3-cr1-be3.cprm.net';
+update ip_addr_info SET p_status='G',lat=$LDon_lat,long=$LDon_long,gl_override=3 where $geocorrection_type and hostname='if-ae-14-2.tcore2.L78-London.as6453.net';
+update ip_addr_info SET p_status='G',lat=$LDon_lat,long=$LDon_long,gl_override=3 where $geocorrection_type and hostname='if-15-2.tcore2.LDN-London.as6453.net';
+
+update ip_addr_info SET p_status='G',lat=$Par_lat,long=$Par_long,gl_override=3 where $geocorrection_type and hostname='ae0.mx1.par.fr.geant.net';
+
+update ip_addr_info SET p_status='G',lat=$Geneva_lat,long=$Geneva_long,gl_override=3 where $geocorrection_type and hostname='ae2.mx1.gen.ch.geant.net';
+update ip_addr_info SET p_status='G',lat=$Geneva_lat,long=$Geneva_long,gl_override=3 where $geocorrection_type and hostname='rediris-gw.mx1.gen.ch.geant.net';
+update ip_addr_info SET p_status='G',lat=$Geneva_lat,long=$Geneva_long,gl_override=3 where $geocorrection_type and hostname='ae7.mx1.gen.ch.geant.net';
+
+update ip_addr_info SET p_status='G',lat=$Madrid_lat,long=$Madrid_long,gl_override=3 where $geocorrection_type and hostname='ae0.mx1.mad.es.geant.net';
+update ip_addr_info SET p_status='G',lat=$Madrid_lat,long=$Madrid_long,gl_override=3 where $geocorrection_type and ip_addr='83.97.88.209';
+
+update ip_addr_info SET p_status='G',lat=$Lisbon_lat,long=$Lisbon_long,gl_override=3 where $geocorrection_type and hostname='if-ae-2-2.tcore1.PV9-Lisbon.as6453.net';
+update ip_addr_info SET p_status='G',lat=$Lisbon_lat,long=$Lisbon_long,gl_override=3 where $geocorrection_type and hostname='ix-ae-4-0.tcore2.PV9-Lisbon.as6453.net';
+
+update ip_addr_info SET p_status='G',lat=$Porto_lat,long=$Porto_long,gl_override=3 where $geocorrection_type and ip_addr='193.136.4.26';
+update ip_addr_info SET p_status='G',lat=$Porto_lat,long=$Porto_long,gl_override=3 where $geocorrection_type and ip_addr='193.137.4.2';
+
+update ip_addr_info SET p_status='G',lat=$Frank_lat,long=$Frank_long,gl_override=3 where $geocorrection_type and hostname='tata.fra03.atlas.cogentco.com';
+update ip_addr_info SET p_status='G',lat=$Frank_lat,long=$Frank_long,gl_override=3 where $geocorrection_type and hostname='ix-16-0.tcore1.FNM-Frankfurt.as6453.net';
+update ip_addr_info SET p_status='G',lat=$Frank_lat,long=$Frank_long,gl_override=3 where $geocorrection_type and hostname='ae1.mx1.fra.de.geant.net';
 "
 
 
