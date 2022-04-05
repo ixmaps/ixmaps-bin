@@ -614,7 +614,6 @@ update ip_addr_info SET p_status='G',lat=$Pho_lat,long=$Pho_long,gl_override=1 w
 update ip_addr_info SET p_status='G',lat=$PAlt_lat,long=$PAlt_long,gl_override=1 where $geocorrection_type and asnum=6461 and hostname like '%.pao%' and (lat=41.0291 or lat=38.65);
 update ip_addr_info SET p_status='G',lat=$Bos_lat,long=$Bos_long,gl_override=1 where $geocorrection_type and asnum=6461 and hostname like '%.bos%' and (lat=41.0291 or lat=38.65);
 update ip_addr_info SET p_status='G',lat=$Phi_lat,long=$Phi_long,gl_override=1 where $geocorrection_type and asnum=6461 and hostname like '%.phl%' and (lat=41.0291 or lat=38.65);
-update ip_addr_info SET p_status='G',lat=$Atl_lat,long=$Atl_long,gl_override=1 where $geocorrection_type and asnum=6461 and hostname like '%.atl%' and (lat=41.0291 or lat=38.65);
 update ip_addr_info SET p_status='G',lat=$KC_lat,long=$KC_long,gl_override=1 where $geocorrection_type and asnum=6461 and hostname like '%.mci%' and (lat=41.0291 or lat=38.65);
 update ip_addr_info SET p_status='G',lat=$LasV_lat,long=$LasV_long,gl_override=1 where $geocorrection_type and asnum=6461 and hostname like '%.las%' and (lat=41.0291 or lat=38.65);
 update ip_addr_info SET p_status='G',lat=$Por_lat,long=$Por_long,gl_override=1 where $geocorrection_type and asnum=6461 and hostname like '%.pdx%' and (lat=41.0291 or lat=38.65);
@@ -1917,6 +1916,8 @@ update ip_addr_info SET p_status='G',lat=$Porto_lat,long=$Porto_long,gl_override
 update ip_addr_info SET p_status='G',lat=$Frank_lat,long=$Frank_long,gl_override=3 where $geocorrection_type and hostname='tata.fra03.atlas.cogentco.com';
 update ip_addr_info SET p_status='G',lat=$Frank_lat,long=$Frank_long,gl_override=3 where $geocorrection_type and hostname='ix-16-0.tcore1.FNM-Frankfurt.as6453.net';
 update ip_addr_info SET p_status='G',lat=$Frank_lat,long=$Frank_long,gl_override=3 where $geocorrection_type and hostname='ae1.mx1.fra.de.geant.net';
+update ip_addr_info SET p_status='G',lat=$Frank_lat,long=$Frank_long,gl_override=3 where $geocorrection_type and ip_addr='149.6.42.73';
+update ip_addr_info SET p_status='G',lat=$Frank_lat,long=$Frank_long,gl_override=3 where $geocorrection_type and ip_addr='130.117.15.86';
 "
 
 
